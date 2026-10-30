@@ -12,6 +12,10 @@ import { absoluteUrl } from "@/lib/helpers/seo";
 import { formatNumber } from "@/lib/helpers/format";
 import { formatPlural } from "@/lib/i18n/format";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
+// Client components the summary's evidence (rendered by a server action) uses but this page doesn't render itself:
+// referenced here so they're in this route's client manifest, or the action's output can't find them.
+import "@/components/evidence/dispute-icon";
+import "@/components/evidence/grade-badge";
 
 type Props = PageProps<"/[lang]/s/[id]">;
 
