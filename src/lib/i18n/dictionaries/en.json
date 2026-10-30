@@ -1,0 +1,385 @@
+{
+  "meta": {
+    "title": "FatwaRAG",
+    "description": "Find fatwas from trusted sources, with a clear summary and the evidence.",
+    "topicDescription": "Fatwas on {topic} from trusted sources.",
+    "surahDescription": "Surah {surah} in full, with the Saheeh International translation and tafsir.",
+    "hadithDescription": "The hadith text with its gradings by hadith scholars.",
+    "muftiDescription": "About {name} and their fatwas."
+  },
+  "header": {
+    "topics": "Browse topics",
+    "language": "Language",
+    "darkMode": "Dark mode",
+    "lightMode": "Light mode"
+  },
+  "home": {
+    "tagline": "Ask your question. We show you what trusted sources said, with a clear summary and its evidence.",
+    "commonQuestionsTitle": "Common questions",
+    "browseTopics": "See all topics",
+    "howTitle": "How it works",
+    "steps": [
+      {
+        "title": "Ask in your own words",
+        "body": "No legal phrasing needed. We search by meaning, not exact words."
+      },
+      {
+        "title": "We search trusted fatwas",
+        "body": "We find the fatwas closest to your question from fixed sources, ordered by how closely they answer it."
+      },
+      {
+        "title": "Read the summary and its evidence",
+        "body": "A short summary of only what the fatwas say, with the verses and hadith and their gradings, and the full fatwas for anyone who wants detail."
+      }
+    ],
+    "principle": "We never answer on our own. Everything shown comes from its source, and if nothing answers your question, we tell you so.",
+    "topicsTitle": "Browse by topic"
+  },
+  "search": {
+    "label": "Your question",
+    "placeholder": "Type your question here…",
+    "submit": "Search",
+    "submitting": "Searching…",
+    "emptyError": "Type your question first",
+    "tooShortError": "Your question is too short. Add more detail",
+    "linkError": "Couldn't open this question. Please try again."
+  },
+  "ask": {
+    "searchedSources": "Searched {sources} sources",
+    "foundFatwas": {
+      "zero": "Found no relevant fatwas",
+      "one": "Found 1 relevant fatwa",
+      "two": "Found {count} relevant fatwas",
+      "few": "Found {count} relevant fatwas",
+      "many": "Found {count} relevant fatwas",
+      "other": "Found {count} relevant fatwas"
+    },
+    "searchingFor": "Searching for:",
+    "summaryEyebrow": "Summary",
+    "summaryStages": {
+      "reading": "Reading the fatwas…",
+      "writing": "Writing the summary…",
+      "checking": "Checking every sentence against its sources…",
+      "translating": "Translating the summary…"
+    },
+    "summaryNote": "This answer was summarized by AI from the fatwas below only.",
+    "reportSummary": "Report a problem with the summary",
+    "askTrusted": "If unsure, ask someone you trust.",
+    "summaryOtherViews": "There are other views on this in the fatwas below.",
+    "summaryDetailsBelow": "The details are in the fatwas below.",
+    "fatwasTitle": "Fatwas",
+    "fatwasOrder": "Ordered by how closely they answer your question",
+    "followUpLabel": "Follow-up question",
+    "followUpPlaceholder": "Ask a follow-up… e.g. What if I am travelling?",
+    "followUpSubmit": "Ask",
+    "nothingFoundTitle": "We found nothing in our sources that answers your question",
+    "nothingFoundBody": "We never answer on our own; we only show what the sources say. Try rephrasing or browse topics, and if you still find nothing, ask someone you trust.",
+    "limitTitle": "We've reached today's question limit",
+    "limitBody": "Please try again tomorrow. Thank you for your patience.",
+    "errorTitle": "The search couldn't finish",
+    "errorBody": "Something went wrong while searching. Please try again.",
+    "retry": "Try again",
+    "rateLimitTitle": "You've sent many questions in a short time",
+    "rateLimitBody": "Please wait a little, then try again.",
+    "summaryMoreLead": "For more detail, see",
+    "summaryMoreLink": "the fatwas",
+    "summaryMoreEnd": ".",
+    "jumpToFatwas": "Fatwas related to your question",
+    "summaryPaused": "Summaries are paused until next month. {fatwas} are available in full as usual.",
+    "summaryFailed": "The summary couldn't be written this time. {fatwas} are available in full.",
+    "fatwasBelow": "The fatwas below",
+    "offTopicTitle": "This site only answers religious questions",
+    "offTopicBody": "Ask about an Islamic ruling, worship, belief, the Quran or hadith, or a matter of conduct, family or money with a religious side.",
+    "invalidTitle": "We couldn't search with this question",
+    "invalidBody": "Write your question as a clear sentence, then try again."
+  },
+  "disclaimer": {
+    "title": "The responsibility lies with the source",
+    "body": "This website isn't run by scholars. It only gathers and presents what the open sources say."
+  },
+  "fatwa": {
+    "number": "Fatwa no.",
+    "date": "Date",
+    "mufti": "Mufti",
+    "origin": "Source",
+    "sourceSummary": "Summary (from the source)",
+    "question": "Question",
+    "answer": "Answer",
+    "seeAlso": "See also:",
+    "seeAlsoItem": "Fatwa {id}",
+    "readOriginal": "Read the fatwa on its original site",
+    "report": "Report a problem",
+    "translated": "Machine translation",
+    "notFound": "We couldn't find this source in our library. That doesn't mean it doesn't exist or is incorrect, only that we don't have it.",
+    "searchSource": "Search",
+    "hijriSuffix": "AH",
+    "referencedBy": "Referenced by fatwa",
+    "translating": "Translating this fatwa…",
+    "translationFailed": "The translation isn't available right now, so the original Arabic is shown."
+  },
+  "evidence": {
+    "source": "Source",
+    "mohaddith": "Graded by",
+    "grade": "Grading",
+    "narrator": "Narrator",
+    "gradeFromFatwa": "Grading as stated in the fatwa",
+    "disputed": "Hadith scholars differed in grading this hadith",
+    "disputedListTitle": "Gradings in our sources, strongest first",
+    "noDisputeNote": "No difference in grading within our sources",
+    "quranLabel": "Allah says",
+    "surahAyah": "Surah {surah} · Verse {ayah}",
+    "glossaryLink": "What does this grading mean?",
+    "openSource": "Open the source in a new tab",
+    "inFatwa": "In the fatwa",
+    "gradingContextTitle": "As written in the fatwa",
+    "gradingGroupNote": "In the fatwa, this grading covers several hadiths together, not this one alone."
+  },
+  "report": {
+    "title": "Report a problem",
+    "description": "Help us improve. Your question and where the problem is are sent with the report.",
+    "reasonLabel": "Reason",
+    "reasons": {
+      "misrepresents": "The summary misrepresents the fatwa",
+      "irrelevant": "Irrelevant result",
+      "wrongLink": "Wrong link or highlight",
+      "translation": "Translation issue",
+      "other": "Other"
+    },
+    "commentLabel": "Details (optional)",
+    "commentPlaceholder": "Briefly describe the problem",
+    "submit": "Send report",
+    "submitting": "Sending…",
+    "cancel": "Cancel",
+    "success": "Thank you, we received your report.",
+    "error": "The report couldn't be sent. Please try again.",
+    "reasonRequired": "Choose a reason",
+    "commentTooLong": "Details are too long (1000 characters max)",
+    "disabledHint": "Choose a reason first"
+  },
+  "footer": {
+    "contact": "Contact us",
+    "topics": "Topics",
+    "privacy": "Privacy"
+  },
+  "sourcePage": {
+    "audioListen": "Listen to this verse",
+    "audioPause": "Pause",
+    "audioFailed": "The recitation couldn't play right now.",
+    "audioReciter": "Reciter: {name}",
+    "quranTitle": "Surah {surah}",
+    "quranPartial": "Only the verses around the referenced verse are shown here",
+    "explain": "Explain",
+    "hideExplain": "Hide explanation",
+    "tafsirLabel": "Tafsir",
+    "tafsirNames": {
+      "muyassar": "Al-Tafsir al-Muyassar",
+      "ibnKathir": "Tafsir Ibn Kathir",
+      "saadi": "Tafsir al-Sa'di"
+    },
+    "tafsirFrom": "Explanation from: {name}",
+    "noTafsir": "No explanation for this verse in our library",
+    "hadithNumber": "Hadith {number}",
+    "translation": "Translation",
+    "report": "Report a problem",
+    "notFoundTitle": "We couldn't find this source in our library",
+    "notFoundBody": "We may not have this source yet.",
+    "verse": "Verse {ayah}",
+    "englishTranslationNote": "Translation: Saheeh International",
+    "isnadNote": "Full text with its chain of narration, as in the source",
+    "noHadithExplanation": "No explanation of this hadith in our library yet.",
+    "hadithTitle": "Hadith {number}",
+    "tafsirFailed": "The explanation couldn't load right now.",
+    "retry": "Try again"
+  },
+  "topics": {
+    "title": "Topics",
+    "subtitle": "Browse fatwas by topic.",
+    "fatwaCount": {
+      "zero": "No fatwas",
+      "one": "1 fatwa",
+      "two": "{count} fatwas",
+      "few": "{count} fatwas",
+      "many": "{count} fatwas",
+      "other": "{count} fatwas"
+    },
+    "empty": "No fatwas in this topic yet.",
+    "subtopics": "Subtopics",
+    "fatwas": "Fatwas",
+    "back": "All topics",
+    "previous": "Previous",
+    "next": "Next",
+    "pageOf": "Page {page} of {total}"
+  },
+  "mufti": {
+    "institution": "Institution",
+    "scholar": "Scholar",
+    "bioFrom": "From the source's own page",
+    "noBio": "No profile from the source yet.",
+    "fatwasTitle": "Fatwas from this source",
+    "source": "Source"
+  },
+  "glossary": {
+    "title": "Hadith gradings",
+    "subtitle": "What each grading given by hadith scholars means. Explanations are quoted word for word from a trusted source, never written by AI.",
+    "groups": {
+      "accepted": "Accepted",
+      "rejected": "Rejected",
+      "other": "Other terms"
+    },
+    "sourceLine": "Source: {name}",
+    "missing": "We have no explanation of this grading from our sources yet.",
+    "arabicOnly": "No English explanation from a trusted source yet, so the Arabic original is shown.",
+    "intro": "Choose a grading to see what it means.",
+    "metaTitle": "Hadith gradings",
+    "meaningTitle": "What it means",
+    "actingTitle": "Is it acted upon?",
+    "actingMissing": "We have no clear text from our sources on acting on this grading yet."
+  },
+  "contact": {
+    "title": "Contact us",
+    "subtitle": "For feedback and suggestions. To report a problem with a fatwa or a summary, use the report button next to it.",
+    "name": "Name",
+    "namePlaceholder": "Optional",
+    "email": "Email",
+    "emailPlaceholder": "So we can reply to you",
+    "message": "Your message",
+    "messagePlaceholder": "Write your message here",
+    "submit": "Send",
+    "submitting": "Sending…",
+    "success": "Thank you, we received your message.",
+    "error": "Your message couldn't be sent. Please try again.",
+    "messageRequired": "Write your message",
+    "messageTooShort": "Your message is too short",
+    "messageTooLong": "Your message is too long (3000 characters max)",
+    "emailInvalid": "That email address isn't valid",
+    "disabledHint": "Write your email and message first",
+    "emailRequired": "Enter your email so we can reply"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The link may have changed or the page was removed.",
+    "home": "Back to home"
+  },
+  "fatwaPage": {
+    "backToTopic": "Back to {topic}"
+  },
+  "banner": {
+    "text": "This website is under review. Do not rely on it for final rulings."
+  },
+  "related": {
+    "title": "Related fatwas",
+    "subtitle": "More fatwas from our library on the same topic"
+  },
+  "errorPage": {
+    "title": "This page couldn't load",
+    "body": "Something went wrong while loading the content. Please try again shortly.",
+    "retry": "Try again"
+  },
+  "nav": {
+    "home": "Home",
+    "back": "Back",
+    "breadcrumb": "Breadcrumb",
+    "quran": "Quran",
+    "hadith": "Hadith",
+    "fatwa": "Fatwa {number}",
+    "answer": "Answer",
+    "sourceNumber": "No. {number}",
+    "shared": "Shared answer"
+  },
+  "share": {
+    "button": "Share",
+    "title": "Share this answer",
+    "notice": "Sharing this answer saves the question and answer on a public page anyone can reach, and it may appear in search engines.",
+    "confirm": "Agree, create link",
+    "creating": "Creating link…",
+    "cancel": "Cancel",
+    "ready": "Your link is ready. Whoever opens it sees this answer as it is now.",
+    "linkLabel": "Link to this answer",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyFailed": "Couldn't copy. Select the link and copy it yourself.",
+    "nativeShare": "Share via…",
+    "close": "Close",
+    "error": "Couldn't create the link. Please try again.",
+    "rateLimited": "You've created many links in a short time. Please try again later.",
+    "expired": "This answer has expired. Ask again, then share it.",
+    "privacyLink": "Privacy policy"
+  },
+  "sharedPage": {
+    "note": "Shared by a visitor, as it appeared when they shared it.",
+    "askOwn": "Ask your own question",
+    "fatwaCount": {
+      "one": "1 fatwa from trusted sources",
+      "two": "{count} fatwas from trusted sources",
+      "few": "{count} fatwas from trusted sources",
+      "many": "{count} fatwas from trusted sources",
+      "other": "{count} fatwas from trusted sources"
+    },
+    "notFoundTitle": "We couldn't find this shared answer",
+    "notFoundBody": "It may have been removed, or the link is wrong."
+  },
+  "privacy": {
+    "title": "Privacy policy",
+    "subtitle": "In short: no accounts and no question history. We keep your question only if you choose to share an answer or send a report.",
+    "sections": [
+      {
+        "heading": "Your questions",
+        "items": [
+          "Your question is sent to our server so we can search for fatwas and write the summary. The AI services listed below receive the question text and the matching fatwas for this.",
+          "We do not store or log questions. A temporary copy (your question, language and fatwa numbers) is kept for one hour only, to finish the summary, then deleted.",
+          "Links to answer pages carry the question encrypted, so it does not show in the address bar, browser history or server logs.",
+          "We keep the result of the «is this a religious question» check for 30 days, tied to a one-way fingerprint of the question that cannot be turned back into its text.",
+          "The answers to the common questions on the home page are made by the same search and summary as any question, then stored so they show instantly."
+        ]
+      },
+      {
+        "heading": "Shared answers",
+        "items": [
+          "Nothing is saved when you share unless you explicitly agree. Then we save the question (and follow-up, if any), its language, the fatwa numbers and the final summary on a public page anyone can reach, which may appear in search engines.",
+          "A shared page stays until we delete it. To have a page you shared removed, write to us from the Contact page with its link.",
+          "With a share we also keep a fingerprint of your connection address, made with a secret key (not the address itself), to limit how many answers one person shares per hour."
+        ]
+      },
+      {
+        "heading": "Reports and messages",
+        "items": [
+          "When you send a report we save the reason, your comment, the question and summary as you saw them, the page address, your device and browser type, and the time, so we can look into the problem.",
+          "When you contact us we save your message, your email and your name if you gave one, so we can reply. We use them for nothing else.",
+          "Reports and messages stay until we delete them by hand. There is no automatic deletion."
+        ]
+      },
+      {
+        "heading": "Limits and protection",
+        "items": [
+          "We limit how many questions, translations and summaries one visitor can use per hour, and set a daily cap for the whole site. This is counted with a one-way fingerprint of your connection address; the address itself is not stored, and the counters expire within hours or two days.",
+          "The share, report and contact forms are protected by Cloudflare Turnstile, and the rest of the site by Cloudflare's bot protection. They process connection and device data to tell people from programs."
+        ]
+      },
+      {
+        "heading": "Usage statistics (PostHog)",
+        "items": [
+          "We use PostHog to learn what gets used: which pages open, which buttons are pressed, whether results appeared or a summary failed.",
+          "No cookies and nothing stored in your browser: the identifier lives only in the page's memory and is gone when you close or reload the page. We do not record sessions or screens, do not capture clicks automatically, and do not build profiles of people.",
+          "We never send your question text, follow-up text, the text of a report or message, a name or an email. We send only things such as the language, text lengths, the number of results, fatwa numbers, and a summary's status and duration. On answer pages the question token is removed from the address before anything is sent.",
+          "Requests go through our own site on their way to PostHog, which may infer an approximate region. If your browser's «Do Not Track» is on, nothing is sent."
+        ]
+      },
+      {
+        "heading": "Who processes data",
+        "items": [
+          "Outside AI services: they receive your question text and the matching fatwas to search, summarize and translate, under their own policies.",
+          "Cloudflare: bot protection and Turnstile.",
+          "PostHog: usage statistics, as above.",
+          "Hosting: the site runs on Vercel and the data server on a private server.",
+          "When you press «Listen» on a verse, the audio loads straight from QuranicAudio (Quran.com's audio host, quranicaudio.com), and «Search» opens Dorar (dorar.net) in a new tab; those sites then see your connection address."
+        ]
+      },
+      {
+        "heading": "Changes and contact",
+        "items": [
+          "We may update this policy; the latest version is always here. For questions or removal requests, write to us from the Contact page."
+        ]
+      }
+    ]
+  }
+}

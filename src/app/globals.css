@@ -1,0 +1,249 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-ui);
+  --font-reading: var(--font-reading-latin), var(--font-reading-face);
+  --font-quran: var(--font-quran-face);
+  --font-heading: var(--font-ui);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* FatwaRAG tokens */
+  --color-ink-soft: var(--ink-soft);
+  --color-sunken: var(--sunken);
+  --color-saffron: var(--saffron);
+  --color-saffron-foreground: var(--saffron-foreground);
+  --color-highlight: var(--highlight);
+  --color-notice: var(--notice);
+  --color-notice-border: var(--notice-border);
+  --color-quran: var(--quran);
+  --color-quran-border: var(--quran-border);
+  --color-quran-ink: var(--quran-ink);
+  --color-grade-sahih: var(--grade-sahih);
+  --color-grade-hasan: var(--grade-hasan);
+  --color-grade-daif: var(--grade-daif);
+  --color-grade-very-daif: var(--grade-very-daif);
+  --color-grade-mawdu: var(--grade-mawdu);
+  --color-grade-other: var(--grade-other);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --animate-delayed-in: delayed-in 0.2s ease-out 1s both;
+  @keyframes delayed-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Summary progress: a shimmer over the stage text, trailing dots, the current stage's pulse */
+  --animate-text-shimmer: text-shimmer 2.4s linear infinite;
+  @keyframes text-shimmer {
+    from { background-position: 100% 0; }
+    to { background-position: 0% 0; }
+  }
+  --animate-dot-fade: dot-fade 1.4s ease-in-out infinite;
+  @keyframes dot-fade {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+  --animate-stage-pulse: stage-pulse 1.6s ease-out infinite;
+  @keyframes stage-pulse {
+    from { box-shadow: 0 0 0 0 color-mix(in srgb, var(--primary) 45%, transparent); }
+    to { box-shadow: 0 0 0 5px color-mix(in srgb, var(--primary) 0%, transparent); }
+  }
+}
+
+/* Olive stone (approved theme v9). Saffron is reserved for the logo dot and source highlights. */
+:root {
+  --background: #f6f6f2;
+  --foreground: #1f2019;
+  --card: #ffffff;
+  --card-foreground: #1f2019;
+  --popover: #1f2019;
+  --popover-foreground: #f6f6f2;
+  --primary: #4f5536;
+  --primary-foreground: #ffffff;
+  --secondary: #efefe8;
+  --secondary-foreground: #1f2019;
+  --muted: #efefe8;
+  --muted-foreground: #86887a;
+  --accent: #ebecdf;
+  --accent-foreground: #4f5536;
+  --destructive: #a8231c;
+  --border: #e0e0d6;
+  --input: #e0e0d6;
+  --ring: #4f5536;
+  --radius: 0.75rem;
+
+  --ink-soft: #4f5145;
+  --sunken: #efefe8;
+  --saffron: #e3a21a;
+  --saffron-foreground: #2b2106;
+  --highlight: rgb(240 180 40 / 0.3);
+  --notice: #efefe8;
+  --notice-border: #e0e0d6;
+  --quran: #ebecdf;
+  --quran-border: #d6d8c3;
+  --quran-ink: #4f5536;
+  --grade-sahih: #1d7a46;
+  --grade-hasan: #5a9e6b;
+  --grade-daif: #c2621b;
+  --grade-very-daif: #a8231c;
+  --grade-mawdu: #5e1010;
+  --grade-other: #7f8590;
+
+  /* Height of the pinned top block (review banner + header). Measured by PinnedTop; this is the first-paint fallback. */
+  --pinned-h: 5.75rem;
+  /* Height of a page's own pinned sub-bar (source title bar); 0 where a page has none. */
+  --subbar-h: 0px;
+}
+
+/* In-page anchors (scroll targets) land just below everything pinned at the top. */
+@utility scroll-mt-pinned {
+  scroll-margin-top: calc(var(--pinned-h) + var(--subbar-h) + 0.75rem);
+}
+
+.dark {
+  --background: #131410;
+  --foreground: #ecede4;
+  --card: #1b1c17;
+  --card-foreground: #ecede4;
+  --popover: #ecede4;
+  --popover-foreground: #131410;
+  --primary: #b9bf94;
+  --primary-foreground: #17180f;
+  --secondary: #24251f;
+  --secondary-foreground: #ecede4;
+  --muted: #24251f;
+  --muted-foreground: #8a8c7f;
+  --accent: #2b2d22;
+  --accent-foreground: #c7cca5;
+  --destructive: #ef6b5f;
+  --border: #30322a;
+  --input: #30322a;
+  --ring: #b9bf94;
+
+  --ink-soft: #bdbfb1;
+  --sunken: #24251f;
+  --highlight: rgb(240 180 40 / 0.22);
+  --notice: #24251f;
+  --notice-border: #30322a;
+  --quran: #2b2d22;
+  --quran-border: #3c3f30;
+  --quran-ink: #c7cca5;
+  --grade-sahih: #4cc283;
+  --grade-hasan: #8acd9b;
+  --grade-daif: #ef9147;
+  --grade-very-daif: #ef6b5f;
+  --grade-mawdu: #d9534f;
+  --grade-other: #8f95a0;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    line-height: 1.7;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  html {
+    @apply font-sans;
+    /* Smooth in-page scrolling everywhere (anchors, citation chips, scroll-to-quote). Route changes stay instant via data-scroll-behavior on <html>. */
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Reading text: fatwas, summaries, hadith */
+  .text-reading {
+    font-family: var(--font-reading);
+    font-size: 1.1rem;
+    line-height: 2;
+  }
+  :lang(en) .text-reading {
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+  /* Quoted verse/hadith links: solid, faint underline that strengthens slightly on hover */
+  .quote-link {
+    color: inherit;
+    text-decoration-line: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 8px;
+    text-decoration-color: color-mix(in srgb, var(--primary) 12%, transparent);
+    transition: text-decoration-color 0.15s;
+  }
+  .quote-link:hover {
+    text-decoration-color: color-mix(in srgb, var(--primary) 35%, transparent);
+  }
+  /* Source reference links (e.g. «صحيح البخاري · ٣٠٥») */
+  .source-link {
+    color: var(--accent-foreground);
+    font-weight: 600;
+    padding-bottom: 3px;
+    line-height: 1.4;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent-foreground) 12%, transparent);
+    transition: border-color 0.15s;
+  }
+  .source-link:hover {
+    border-bottom-color: color-mix(in srgb, var(--accent-foreground) 35%, transparent);
+  }
+  /* Show loading UI only if the wait passes one second */
+  .delayed-loading {
+    animation: var(--animate-delayed-in);
+  }
+  /* Summary progress: the shimmer runs in the reading direction (right to left in Arabic) */
+  .text-shimmer {
+    background-image: linear-gradient(90deg, var(--ink-soft) 0%, var(--ink-soft) 40%, var(--primary) 50%, var(--ink-soft) 60%, var(--ink-soft) 100%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: var(--animate-text-shimmer);
+  }
+  [dir="rtl"] .text-shimmer {
+    animation-direction: reverse;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .text-shimmer {
+      animation: none;
+      background-image: none;
+      color: var(--ink-soft);
+    }
+  }
+}
