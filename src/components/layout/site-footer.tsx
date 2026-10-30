@@ -3,6 +3,8 @@ import type { Locale } from "@/lib/config/i18n";
 import { routes } from "@/lib/config/routes";
 import type { Dictionary } from "@/lib/i18n/get-dictionary";
 import { BrandName } from "./brand-name";
+import { SOURCE_REPOS_URL } from "@/lib/config/constants";
+import { GitHubMark } from "./github-mark";
 
 type SiteFooterProps = {
   locale: Locale;
@@ -14,7 +16,7 @@ export function SiteFooter({ locale, dict }: SiteFooterProps) {
     <footer className="border-t">
       <div className="mx-auto flex max-w-[860px] flex-wrap items-center justify-between gap-3 px-4 py-5 text-sm text-muted-foreground">
         <BrandName locale={locale} />
-        <nav className="flex gap-4">
+        <nav className="flex items-center gap-4">
           <Link href={routes.topics(locale)} className="hover:text-accent-foreground">
             {dict.topics}
           </Link>
@@ -24,6 +26,9 @@ export function SiteFooter({ locale, dict }: SiteFooterProps) {
           <Link href={routes.privacy(locale)} className="hover:text-accent-foreground">
             {dict.privacy}
           </Link>
+          <a href={SOURCE_REPOS_URL} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:text-accent-foreground">
+            <GitHubMark className="size-4" />
+          </a>
         </nav>
       </div>
     </footer>

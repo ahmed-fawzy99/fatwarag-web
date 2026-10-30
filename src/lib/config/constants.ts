@@ -33,3 +33,6 @@ export const VERSE_AUDIO = {
   reciterAr: "محمود خليل الحصري",
   reciterEn: "Mahmoud Khalil Al-Husary",
 } as const;
+
+/** The public source repositories (site and API), linked from the footer: the owner's GitHub repositories, filtered. */
+export const SOURCE_REPOS_URL = "https://github.com/ahmed-fawzy99?tab=repositories&q=fatwarag";
