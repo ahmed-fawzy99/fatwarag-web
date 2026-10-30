@@ -33,8 +33,6 @@ type QuestionFormProps = {
   /** When set, the form asks a follow-up to this question instead of a new one. */
   followUpOf?: string;
   size?: "hero" | "default";
-  /** Skip the "write your question first" error when the box is merely focused and left (home and follow-up boxes). */
-  quietOnBlur?: boolean;
 };
 
 /** Spacing differences don't make a new question. */
@@ -42,14 +40,16 @@ function normalize(question: string): string {
   return question.trim().replace(/\s+/g, " ");
 }
 
-export function QuestionForm({ locale, strings, defaultValue = "", followUpOf, size = "default", quietOnBlur = false }: QuestionFormProps) {
+export function QuestionForm({ locale, strings, defaultValue = "", followUpOf, size = "default" }: QuestionFormProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const schema = createQuestionSchema({ empty: strings.emptyError, tooShort: strings.tooShortError });
   const form = useForm<QuestionInput>({
     resolver: zodResolver(schema),
     defaultValues: { question: defaultValue },
-    mode: quietOnBlur ? "onSubmit" : "onTouched",
+    // Messages appear only when the visitor submits, never while typing or on leaving the box.
+    mode: "onSubmit",
+    reValidateMode: "onSubmit",
   });
   const error = form.formState.errors.question;
   const busy = isPending || form.formState.isSubmitting;
@@ -72,6 +72,13 @@ export function QuestionForm({ locale, strings, defaultValue = "", followUpOf, s
     else track(EVENTS.questionAsked, { locale, length, surface: size === "hero" ? "home" : "ask_page" });
     startTransition(() => router.push(href));
     if (followUpOf) form.reset({ question: "" });
+  }
+
+  /** After a failed submit the message goes once the text is valid; a new message waits for the next submit. */
+  function clearOnceValid(event: React.ChangeEvent<HTMLTextAreaElement>) {
+    if (form.getFieldState("question").invalid && schema.safeParse({ question: event.target.value }).success) {
+      form.clearErrors("question");
+    }
   }
 
   function submitOnEnter(event: React.KeyboardEvent<HTMLTextAreaElement>) {
@@ -103,7 +110,7 @@ export function QuestionForm({ locale, strings, defaultValue = "", followUpOf, s
             size === "hero" && "min-h-20",
           )}
           onKeyDown={submitOnEnter}
-          {...form.register("question")}
+          {...form.register("question", { onChange: clearOnceValid })}
         />
         <Tooltip>
           <TooltipTrigger asChild>

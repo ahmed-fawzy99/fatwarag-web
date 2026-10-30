@@ -168,7 +168,7 @@ async function AnswerBody({ locale, dict, result }: { locale: Locale; dict: Dict
 
       <FatwaList locale={locale} dict={dict} result={result} fatwas={fatwas} summary={summary} />
 
-      <QuestionForm locale={locale} strings={questionStrings} followUpOf={result.question} quietOnBlur />
+      <QuestionForm locale={locale} strings={questionStrings} followUpOf={result.question} />
 
       <Suspense fallback={<ListSkeleton rows={3} />}>
         <RelatedFatwas locale={locale} dict={dict} topicKeys={topFatwa.topicKeys} excludeIds={result.fatwaIds} />

@@ -30,7 +30,7 @@ export function HomeHero({ locale, dict }: { locale: Locale; dict: Dictionary })
           </h1>
           <p className="text-balance text-ink-soft">{home.tagline}</p>
         </div>
-        <QuestionForm locale={locale} strings={{ ...dict.search }} size="hero" quietOnBlur />
+        <QuestionForm locale={locale} strings={{ ...dict.search }} size="hero" />
         <Suspense
           fallback={
             <div className="flex flex-col gap-2">
