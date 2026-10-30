@@ -61,15 +61,24 @@ function EvidenceSlot({ evidence, rendered }: { evidence: Evidence[]; rendered: 
   return rendered[evidenceKey(evidence)] ?? null;
 }
 
-type PointProps = { point: SummaryPoint; info: CitationInfo; locale: Locale; evidence: Record<string, ReactNode>; tone: "agreed" | "view" };
+type PointProps = { point: SummaryPoint; info: CitationInfo; locale: Locale; evidence: Record<string, ReactNode>; tone: "agreed" | "view"; headline?: string };
 
-function Point({ point, info, locale, evidence, tone }: PointProps) {
+/** Whitespace-insensitive, so a title that only repeats the headline is recognised. */
+function sameText(a: string | undefined, b: string | undefined): boolean {
+  return Boolean(a && b) && a!.replace(/\s+/g, " ").trim() === b!.replace(/\s+/g, " ").trim();
+}
+
+function Point({ point, info, locale, evidence, tone, headline }: PointProps) {
+  // A title that repeats the summary's headline right above it is left out.
+  const showTitle = !sameText(point.title, headline);
   return (
     <div className={cn(REVEAL, tone === "view" ? "rounded-xl border-s-[3px] border-primary bg-sunken px-4 py-3" : "py-1")}>
-      <div className="mb-1 flex flex-wrap items-baseline gap-x-2 font-sans">
-        <h3 className="text-[0.98rem] font-semibold">{point.title}</h3>
-        {point.heldBy && <span className="text-sm text-muted-foreground">{point.heldBy}</span>}
-      </div>
+      {(showTitle || point.heldBy) && (
+        <div className="mb-1 flex flex-wrap items-baseline gap-x-2 font-sans">
+          {showTitle && <h3 className="text-[0.98rem] font-semibold">{point.title}</h3>}
+          {point.heldBy && <span className="text-sm text-muted-foreground">{point.heldBy}</span>}
+        </div>
+      )}
       <p className="text-reading">
         {point.body} <Citations ids={point.citations} info={info} locale={locale} />
       </p>
@@ -84,10 +93,10 @@ const UNANSWERED: Record<Locale, string> = {
   en: "The fatwas below don't answer:",
 };
 
-type ItemsProps = { parts: SummaryPart[]; info: CitationInfo; locale: Locale; evidence: Record<string, ReactNode> };
+type ItemsProps = { parts: SummaryPart[]; info: CitationInfo; locale: Locale; evidence: Record<string, ReactNode>; headline?: string };
 
 /** Agreed point, views and preferences, in display order. */
-function MainItems({ parts, info, locale, evidence }: ItemsProps) {
+function MainItems({ parts, info, locale, evidence, headline }: ItemsProps) {
   const main = parts.filter((part) => part.section !== "caution");
   if (main.length === 0) return null;
   return (
@@ -105,6 +114,7 @@ function MainItems({ parts, info, locale, evidence }: ItemsProps) {
             locale={locale}
             evidence={evidence}
             tone={part.section === "view" ? "view" : "agreed"}
+            headline={headline}
           />
         ),
       )}
@@ -168,7 +178,7 @@ function QuestionPart({ group, info, locale, evidence, otherViewsText }: Questio
       ) : (
         <>
           {group.final?.headline && <p className="font-semibold text-balance">{group.final.headline}</p>}
-          <MainItems parts={group.items} info={info} locale={locale} evidence={evidence} />
+          <MainItems parts={group.items} info={info} locale={locale} evidence={evidence} headline={group.final?.headline ?? undefined} />
           <OtherViews final={group.final} text={otherViewsText} />
           {group.items.some((part) => part.section === "caution") && (
             <div className="mt-1 border-t border-dashed pt-2 text-ink-soft">
@@ -267,7 +277,7 @@ export function SummaryCard({ locale, question, strings, reportStrings, summary,
         </div>
       ) : (
         <>
-          <MainItems parts={parts} info={citations} locale={locale} evidence={evidence} />
+          <MainItems parts={parts} info={citations} locale={locale} evidence={evidence} headline={summary?.headline} />
           <OtherViews final={summary} text={strings} className="mt-3" />
         </>
       )}
