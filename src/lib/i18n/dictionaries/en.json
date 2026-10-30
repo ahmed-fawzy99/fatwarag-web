@@ -320,13 +320,13 @@
   },
   "privacy": {
     "title": "Privacy policy",
-    "subtitle": "In short: no accounts and no question history. We keep your question only if you choose to share an answer or send a report.",
+    "subtitle": "In short: no accounts and no question history. Your question stays with us only if you choose to share an answer or send a report, or if its summary could not be written.",
     "sections": [
       {
         "heading": "Your questions",
         "items": [
           "Your question is sent to our server so we can search for fatwas and write the summary. The AI services listed below receive the question text and the matching fatwas for this.",
-          "We do not store or log questions. A temporary copy (your question, language and fatwa numbers) is kept for one hour only, to finish the summary, then deleted.",
+          "We do not store or log questions. A temporary copy (your question, language and fatwa numbers) is kept for one hour only, to finish the summary, then deleted, unless the summary could not be written: then the question, its fatwa numbers and why it failed are sent privately to the development team so the fault can be fixed, with nothing that identifies you.",
           "Links to answer pages carry the question encrypted, so it does not show in the address bar, browser history or server logs.",
           "We keep the result of the «is this a religious question» check for 30 days, tied to a one-way fingerprint of the question that cannot be turned back into its text.",
           "The answers to the common questions on the home page are made by the same search and summary as any question, then stored so they show instantly."
