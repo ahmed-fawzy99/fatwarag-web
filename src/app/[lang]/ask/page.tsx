@@ -11,6 +11,10 @@ import { sealAskLink, unsealAskLink } from "@/lib/answer/ask-link";
 import { isLocale, type Locale } from "@/lib/config/i18n";
 import { routes } from "@/lib/config/routes";
 import { getDictionary, type Dictionary } from "@/lib/i18n/get-dictionary";
+// Client components the summary's evidence (rendered by a server action) uses but this page doesn't render itself:
+// referenced here so they're in this route's client manifest, or the action's output can't find them.
+import "@/components/evidence/dispute-icon";
+import "@/components/evidence/grade-badge";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/ask">): Promise<Metadata> {
   const { lang } = await params;
