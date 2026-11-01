@@ -54,11 +54,14 @@ export function FatwaAccordion({ locale, entries, translatedLabel, defaultOpenId
             <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-accent text-sm font-semibold text-accent-foreground">
               {entry.number}
             </span>
-            <span className="fatwa-title min-w-0 flex-1 font-semibold transition-colors">
-              {entry.title}
-              {entry.titleTranslated && <LanguagesIcon className="ms-1.5 inline size-3.5 text-muted-foreground" aria-label={translatedLabel} />}
+            {/* Mobile: title takes the full width, source pill drops below it. sm+: side by side. */}
+            <span className="flex min-w-0 flex-1 flex-col items-start gap-1.5 sm:flex-row sm:items-center sm:gap-3">
+              <span className="fatwa-title min-w-0 font-semibold transition-colors sm:flex-1">
+                {entry.title}
+                {entry.titleTranslated && <LanguagesIcon className="ms-1.5 inline size-3.5 text-muted-foreground" aria-label={translatedLabel} />}
+              </span>
+              <span className="shrink-0 rounded-full bg-sunken px-2.5 py-0.5 text-xs font-normal text-ink-soft">{entry.sourceName}</span>
             </span>
-            <span className="shrink-0 rounded-full bg-sunken px-2.5 py-0.5 text-xs font-normal text-ink-soft">{entry.sourceName}</span>
           </AccordionTrigger>
           <AccordionContent className="border-t px-4 pt-4 pb-5 text-base [&_p:not(:last-child)]:mb-0">{entry.body}</AccordionContent>
         </AccordionItem>
