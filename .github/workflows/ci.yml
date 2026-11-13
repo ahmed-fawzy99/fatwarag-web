@@ -1,0 +1,123 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: ['**']
+
+# Pull requests cancel stale runs. Pushes never do, so a release is never cut off halfway.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+env:
+  IMAGE: ghcr.io/${{ github.repository }}
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - run: corepack enable
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm test
+
+  # Every push publishes an image tagged sha-<commit> and the branch name; main also gets latest.
+  # Pull requests only prove the image builds (with a throwaway ask-link key).
+  image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
+      - if: github.event_name == 'push'
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: meta
+        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
+        with:
+          images: ${{ env.IMAGE }}
+          tags: |
+            type=sha,format=long
+            type=ref,event=branch
+            type=raw,value=latest,enable={{is_default_branch}}
+      - id: key
+        env:
+          ASK_LINK_KEY: ${{ secrets.ASK_LINK_KEY }}
+        run: |
+          if [ -z "$ASK_LINK_KEY" ]; then
+            [ "${{ github.event_name }}" = push ] && { echo "Set the ASK_LINK_KEY secret." >&2; exit 1; }
+            ASK_LINK_KEY="ci:$(openssl rand 32 | basenc --base64url | tr -d '=')"
+          fi
+          echo "::add-mask::$ASK_LINK_KEY"
+          printf '%s' "$ASK_LINK_KEY" > "$RUNNER_TEMP/ask_link_key"
+      - uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
+        with:
+          context: .
+          target: production
+          platforms: linux/amd64
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          secret-files: ask_link_key=${{ runner.temp }}/ask_link_key
+          build-args: |
+            NEXT_PUBLIC_SITE_URL=${{ vars.NEXT_PUBLIC_SITE_URL || 'https://fatwarag.com' }}
+            NEXT_PUBLIC_TURNSTILE_SITE_KEY=${{ vars.NEXT_PUBLIC_TURNSTILE_SITE_KEY }}
+            NEXT_PUBLIC_POSTHOG_KEY=${{ vars.NEXT_PUBLIC_POSTHOG_KEY }}
+            NEXT_PUBLIC_POSTHOG_HOST=${{ vars.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com' }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # Production release: only from main, only when the checks and the image are green.
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [checks, image]
+    runs-on: ubuntu-latest
+    environment: production
+    concurrency:
+      group: production-release
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      packages: read
+    env:
+      DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+      TAG: sha-${{ github.sha }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - name: Configure SSH
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy
+          chmod 600 ~/.ssh/deploy
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+      - name: Copy the stack to the server
+        run: |
+          ssh -i ~/.ssh/deploy "deploy@${DEPLOY_HOST}" "mkdir -p /srv/fatwarag-web"
+          scp -i ~/.ssh/deploy deploy/compose.prod.yaml deploy/deploy.sh "deploy@${DEPLOY_HOST}:/srv/fatwarag-web/"
+      - name: Release
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GHCR_USER: ${{ github.actor }}
+        run: |
+          ssh -i ~/.ssh/deploy "deploy@${DEPLOY_HOST}" "docker login ghcr.io -u '${GHCR_USER}' --password-stdin" <<< "$GHCR_TOKEN"
+          ssh -i ~/.ssh/deploy "deploy@${DEPLOY_HOST}" "bash /srv/fatwarag-web/deploy.sh ${TAG}"
+      - name: Log the server out of the registry
+        if: always()
+        run: ssh -i ~/.ssh/deploy "deploy@${DEPLOY_HOST}" "docker logout ghcr.io" || true

@@ -11,7 +11,8 @@ const posthogHost = (process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://eu.i.posth
 const posthogAssetsHost = posthogHost.replace("://eu.", "://eu-assets.").replace("://us.", "://us-assets.");
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // The Docker image runs Next's self-contained server (Dockerfile).
+  output: "standalone",
   // PostHog's endpoints end in a slash (/ingest/e/); Next must not redirect them.
   skipTrailingSlashRedirect: posthogEnabled,
   async rewrites() {
@@ -44,7 +45,7 @@ export default function config(phase: string): NextConfig {
   if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) parseAskLinkKeys(process.env.ASK_LINK_KEY);
   // The production site's canonical links, sitemaps, robots.txt and share links come from NEXT_PUBLIC_SITE_URL (inlined at
   // build time): without it they would point at localhost, so the production build fails instead.
-  if (phase === PHASE_PRODUCTION_BUILD && process.env.VERCEL_ENV === "production" && !process.env.NEXT_PUBLIC_SITE_URL?.trim()) {
+  if (phase === PHASE_PRODUCTION_BUILD && process.env.DEPLOY_ENV === "production" && !process.env.NEXT_PUBLIC_SITE_URL?.trim()) {
     throw new Error("NEXT_PUBLIC_SITE_URL is not set. Set it in the production environment (e.g. https://fatwarag.com).");
   }
   return nextConfig;
