@@ -1,7 +1,7 @@
 # Production stack for the site on the Hetzner server, next to the API stack (fatwarag-prod).
 #
 # Releases are automatic: a push to main runs CI, which publishes the image and runs deploy.sh on the server
-# (in /srv/fatwarag-web, next to .env.production). The site joins the API stack's network, so:
+# (in /srv/fatwarag/web, next to .env.production). The site joins the API stack's network, so:
 #   - it calls the API directly at http://app:8080 (no trip through Cloudflare, so the edge rate limit on
 #     /api/v1/search never sees the site's own requests), and
 #   - the API stack's Cloudflare Tunnel routes fatwarag.com to http://web:3000. No port is opened to the internet.

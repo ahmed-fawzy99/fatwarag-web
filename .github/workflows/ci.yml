@@ -109,15 +109,15 @@ jobs:
           printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
       - name: Copy the stack to the server
         run: |
-          ssh -i ~/.ssh/deploy "deploy@${DEPLOY_HOST}" "mkdir -p /srv/fatwarag-web"
-          scp -i ~/.ssh/deploy deploy/compose.prod.yaml deploy/deploy.sh "deploy@${DEPLOY_HOST}:/srv/fatwarag-web/"
+          ssh -i ~/.ssh/deploy "deploy@${DEPLOY_HOST}" "mkdir -p /srv/fatwarag/web"
+          scp -i ~/.ssh/deploy deploy/compose.prod.yaml deploy/deploy.sh "deploy@${DEPLOY_HOST}:/srv/fatwarag/web/"
       - name: Release
         env:
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GHCR_USER: ${{ github.actor }}
         run: |
           ssh -i ~/.ssh/deploy "deploy@${DEPLOY_HOST}" "docker login ghcr.io -u '${GHCR_USER}' --password-stdin" <<< "$GHCR_TOKEN"
-          ssh -i ~/.ssh/deploy "deploy@${DEPLOY_HOST}" "bash /srv/fatwarag-web/deploy.sh ${TAG}"
+          ssh -i ~/.ssh/deploy "deploy@${DEPLOY_HOST}" "bash /srv/fatwarag/web/deploy.sh ${TAG}"
       - name: Log the server out of the registry
         if: always()
         run: ssh -i ~/.ssh/deploy "deploy@${DEPLOY_HOST}" "docker logout ghcr.io" || true

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Releases one image tag of the site on the server. GitHub Actions copies this file and compose.prod.yaml to
-# /srv/fatwarag-web and runs it after the checks and the image build are green:
-#   bash /srv/fatwarag-web/deploy.sh sha-<commit>
+# /srv/fatwarag/web and runs it after the checks and the image build are green:
+#   bash /srv/fatwarag/web/deploy.sh sha-<commit>
 # Rolling back is the same command with an older tag.
 set -euo pipefail
 
